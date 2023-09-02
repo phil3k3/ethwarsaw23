@@ -1,4 +1,4 @@
-import { ProjectList } from "../components/contributor-ui/ProjectList";
+//import {TasksTable}  from "../components/contributor-ui/TasksList";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 
@@ -10,9 +10,7 @@ const ContributorUI: NextPage = () => {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
-      <div className="grid lg:grid-cols-2 flex-grow" data-theme="exampleUi">
-        <ProjectList />
-      </div>
+      <div className="grid lg:grid-cols-2 flex-grow" data-theme="exampleUi"></div>
     </>
   );
 };
