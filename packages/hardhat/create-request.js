@@ -31,7 +31,7 @@
   
     // In this example, the payee is also the payer and payment recipient.
     const payeeIdentity = process.env.PAYEE_PUBLIC_KEY;
-    const payerIdentity = payeeIdentity;
+    const payerIdentity = process.env.PAYER_PUBLIC_KEY;
     const paymentRecipient = payeeIdentity;
     const feeRecipient = "0x0000000000000000000000000000000000000000";
   
@@ -39,7 +39,7 @@
       requestInfo: {
           currency: {
             type: Types.RequestLogic.CURRENCY.ETH,
-            value: "ETH",
+            value: 0x0,
             network: "goerli",
           },
         expectedAmount: "10",
@@ -78,13 +78,13 @@
 
     const provider = getDefaultProvider("goerli");
     const wallet = new ethers.Wallet(process.env.PAYEE_PRIVATE_KEY, provider);
-    const erc721Mintable = new ethers.Contract(
+    const workItem = new ethers.Contract(
         process.env.NFT_ADDRESS,
         WorkItem.abi,
         wallet
     );
 
-    const txResponse = erc721Mintable.mint(process.env.PAYEE_PUBLIC_KEY, "myGitHash", request.requestId, 1000, 3);
+    const txResponse = workItem.mint(process.env.PAYEE_PUBLIC_KEY, "myGitHash", request.requestId, 1000, 3);
     const receipt = await txResponse;
-    console.log("NFT minted in block:", receipt.blockNumber);
+    console.log("NFT minted in block:", receipt);
   })();

@@ -10,8 +10,6 @@
     const { config } = require("dotenv");
     const { 
         hasSufficientFunds,  
-        approveErc20,
-        hasErc20Approval,
         payRequest
      } = require("@requestnetwork/payment-processor");
      const { providers, Wallet, getDefaultProvider} = require("ethers");
@@ -23,13 +21,13 @@
   
     const epkSignatureProvider = new EthereumPrivateKeySignatureProvider({
       method: Types.Signature.METHOD.ECDSA,
-      privateKey: process.env.PAYEE_PRIVATE_KEY, // Must include 0x prefix
+      privateKey: process.env.PAYER_PRIVATE_KEY, // Must include 0x prefix
     });
 
     const provider = getDefaultProvider("goerli");
   
     const payerWallet = new Wallet(
-        process.env.PAYEE_PRIVATE_KEY, // Must include 0x prefix
+        process.env.PAYER_PRIVATE_KEY, // Must include 0x prefix
         provider,
     );
 
@@ -56,21 +54,15 @@
       );
 
     if (_hasSufficientFunds) {
-        // const _hasErc20Approval = await hasErc20Approval(
-        //     requestData,
-        //     payerWallet.address,
-        //     provider
-        // );
-        // if (!_hasErc20Approval) {
-        //     const approvalTx = await approveErc20(requestData, payerWallet);
-        //     await approvalTx.wait(2);
-        // }
-
+        console.log(requestData);
+        console.log(payerWallet);
         const paymentTx = await payRequest(requestData, payerWallet);
         await paymentTx.wait(2);
+        console.log("Request paid...");
 
         const request = await requestClient.fromRequestId(requestData.requestId);
         let requestData2 = request.getData();
+        console.log("Refreshed payment request");
 
         while (requestData2.balance?.balance < requestData2.expectedAmount) {
             console.log("Waiting for payment to be confirmed...");
@@ -78,7 +70,13 @@
             await new Promise((resolve) => setTimeout(resolve, 1000));
         }
 
-        // TODO burn NFT
+
+        // update payment request with correct amount
+        // switch to payee wallet
+
+        // get details from NFT (interest rate, etc..)
+
+        // TODO burn NFT (using payee private key) ?
     }
     else {
         console.log("Insufficient funds");
