@@ -136,7 +136,7 @@ export default function SubmitForm() {
     <div>
       <h3>Create a request</h3>
       <br></br>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} name="submiitform">
         <label>Payee Identity *</label>
         <ConnectButton chainStatus="none" showBalance={false} />
         <p>
