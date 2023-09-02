@@ -8,8 +8,6 @@
       EthereumPrivateKeySignatureProvider,
     } = require("@requestnetwork/epk-signature");
     const { config } = require("dotenv");
-    const { ethers, providers, Wallet, getDefaultProvider} = require("ethers"); 
-    const WorkItem  = require("./artifacts/contracts/WorkItem.sol/WorkItemNFT.json");
 
     // // Load environment variables from .env file
     config();
@@ -38,11 +36,11 @@
     const requestCreateParameters = {
       requestInfo: {
           currency: {
-            type: Types.RequestLogic.CURRENCY.ETH,
-            value: 0x0,
+            type: Types.RequestLogic.CURRENCY.ERC20,
+            value: process.env.WORKITEM_TOKEN_ADDRESS,
             network: "goerli",
           },
-          expectedAmount: "10",
+          expectedAmount: "50",
         payee: {
           type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
           value: payeeIdentity,
@@ -54,12 +52,12 @@
         timestamp: Utils.getCurrentTimestampInSecond(),
       },
       paymentNetwork: {
-        id: Types.Extension.PAYMENT_NETWORK_ID.ETH_FEE_PROXY_CONTRACT,
+        id: Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT,
         parameters: {
           paymentNetworkName: "goerli",
           paymentAddress: paymentRecipient,
           feeAddress: feeRecipient,
-          feeAmount: "10000"
+          feeAmount: "10"
         },
       },
       contentData: {
@@ -75,30 +73,4 @@
     const request = await requestClient.createRequest(requestCreateParameters);
     const requestData = await request.waitForConfirmation();
     console.log(JSON.stringify(requestData, null, 2));
-
-    const provider = getDefaultProvider("goerli");
-    const wallet = new ethers.Wallet(process.env.PAYEE_PRIVATE_KEY, provider);
-    const workItem = new ethers.Contract(
-        process.env.NFT_ADDRESS,
-        WorkItem.abi,
-        wallet
-    );
-
-    // const nftMetadata= {
-    //   "name": "Your NFT Name",
-    //   "description": "A brief description of your NFT.",
-    //   "image": "https://yourwebsite.com/path/to/your/logo.png"
-    // }
-
-    // const buffer = Buffer.from(JSON.stringify(nftMetadata));
-    try {
-      // const result = await ipfs.add(buffer);
-      // console.log(result.path);
-
-      const txResponse = workItem.mint(process.env.PAYEE_PUBLIC_KEY, "myGitHash", request.requestId, 1000, 3, "path");
-      const receipt = await txResponse;
-      console.log("NFT minted in block:", receipt);
-    } catch (error) {
-      console.error("Error adding file:", error);
-    }
   })();

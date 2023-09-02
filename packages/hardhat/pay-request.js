@@ -10,6 +10,8 @@
     const { config } = require("dotenv");
     const { 
         hasSufficientFunds,  
+        hasErc20Approval,
+        approveErc20,
         payRequest
      } = require("@requestnetwork/payment-processor");
      const { providers, Wallet, getDefaultProvider} = require("ethers");
@@ -45,6 +47,7 @@
     console.log("Request client created");
     const request = await requestClient.fromRequestId(process.argv[2]);
     const requestData = request.getData();  
+    console.log(requestData);
     const _hasSufficientFunds = await hasSufficientFunds(
         requestData,
         payerWallet.address,
@@ -56,6 +59,21 @@
     if (_hasSufficientFunds) {
         console.log(requestData);
         console.log(payerWallet);
+
+        console.log("Requesting approval");
+        const _hasErc20Approval = await hasErc20Approval(
+          requestData,
+          payerWallet.address,
+          provider
+        );
+
+        if (!_hasErc20Approval) {
+          console.log('Requesting approval...');
+          const approvalTx = await approveErc20(requestData, payerWallet);
+          await approvalTx.wait(2);
+          console.log(`Approval granted. ${approvalTx.hash}`);
+        }
+
         const paymentTx = await payRequest(requestData, payerWallet);
         await paymentTx.wait(2);
         console.log("Request paid...");

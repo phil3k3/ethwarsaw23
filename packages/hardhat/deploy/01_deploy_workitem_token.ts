@@ -21,10 +21,10 @@ const deployWorkItem: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("WorkItemNFT", {
+  await deploy("WorkItemToken", {
     from: deployer,
     // Contract constructor arguments
-    args: [],
+    args: [1000],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
@@ -39,4 +39,4 @@ export default deployWorkItem;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourContract
-deployWorkItem.tags = ["WorkItem"];
+deployWorkItem.tags = ["WorkItemToken"];
