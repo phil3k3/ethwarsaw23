@@ -40,6 +40,7 @@
     "usehooks-ts@^2.7.2": "patch:usehooks-ts@npm:^2.7.2#./.yarn/patches/usehooks-ts-npm-2.7.2-fceffe0e43.patch"
   },
   "dependencies": {
+    "@celo/rainbowkit-celo": "^1.0.2",
     "@prisma/client": "^5.2.0",
     "@requestnetwork/request-client.js": "^0.40.0",
     "@requestnetwork/web3-signature": "^0.4.36",

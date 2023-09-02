@@ -47,13 +47,14 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.1",
-    "@requestnetwork/payment-processor": "^0.38.1-next.1918",
+    "@requestnetwork/payment-processor": "^0.37.0",
     "@requestnetwork/request-client.js": "^0.40.1-next.1918",
     "@requestnetwork/web3-signature": "^0.4.36",
     "dotenv": "^16.0.3",
     "envfile": "^6.18.0",
-    "openzeppelin-solidity": "^3.4.2",
+    "openzeppelin-solidity": "^4.8.1",
     "qrcode": "^1.5.1",
+    "vercel": "24.2.4",
     "zksync-web3": "^0.14.3"
   }
 }

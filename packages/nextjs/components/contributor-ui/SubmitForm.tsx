@@ -21,9 +21,9 @@ export default function SubmitForm() {
   const [storageChain, setStorageChain] = useState("42220");
   const [expectedAmount, setExpectedAmount] = useState("");
   const [currency, setCurrency] = useState("42220_0x62b8b11039fcfe5ab0c56e502b1c372a3d2a9c7a");
-  const [paymentRecipient, setPaymentRecipient] = useState("");
+  //const [paymentRecipient, setPaymentRecipient] = useState("");
   const [payerIdentity, setPayerIdentity] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  //const [dueDate, setDueDate] = useState("");
   const [reason, setReason] = useState("");
   const [status, setStatus] = useState(APP_STATUS.AWAITING_INPUT);
 
@@ -70,7 +70,7 @@ export default function SubmitForm() {
       contentData: {
         // Consider using rnf_invoice format from @requestnetwork/data-format package.
         reason: reason,
-        dueDate: dueDate,
+        //dueDate: dueDate,
       },
       signer: {
         type: Types.Identity.TYPE.ETHEREUM_ADDRESS,

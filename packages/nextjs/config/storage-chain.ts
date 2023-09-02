@@ -22,4 +22,12 @@ export const storageChains = new Map<string, StorageChain>([
       gateway: "https://xdai.gateway.request.network/",
     },
   ],
+  [
+    "42220",
+    {
+      name: "Celo",
+      type: "mainnet",
+      gateway: "https://celo.gateway.request.network/",
+    },
+  ],
 ]);
