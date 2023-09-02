@@ -1,5 +1,4 @@
-"use client";
-
+//"use client";
 import { useState } from "react";
 import { currencies } from "../../config/currency";
 import { storageChains } from "../../config/storage-chain";
