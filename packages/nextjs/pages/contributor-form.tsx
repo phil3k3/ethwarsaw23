@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { ProfileContributor } from "~~/components/contributor-ui/ProfileContributor";
+import { SubmitForm } from "~~/components/contributor-ui/SubmitForm";
 
-const ContributorUI: NextPage = () => {
+const ContributorForm: NextPage = () => {
   return (
     <>
       <MetaHeader title="Contributors board" description="Board where it's displayed the DAO projects">
@@ -11,10 +11,11 @@ const ContributorUI: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
       <div className="flex flex-col items-center flex-grow pt-10" data-theme="contributorUI">
-        <ProfileContributor />
+        <p>rendering the contributor form ok</p>
+        <SubmitForm />
       </div>
     </>
   );
 };
 
-export default ContributorUI;
+export default ContributorForm;
