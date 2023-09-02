@@ -37,10 +37,10 @@ export const { chains, publicClient, webSocketPublicClient } = configureChains(
   [publicProvider()],
 );
 
-// Project ID from WalletConnect account: david.huntmateo@request.network
-const projectId = "9d9d6953cbcd80c6177a7402d79bfa8b";
+// Project ID from WalletConnect account:
+const projectId = "152edacbf75e37f23d75d7dbde5fe298";
 
-const appName = "Request Network Quickstart: Create a request";
+const appName = "PEERUPmvp1";
 
 const { wallets } = getDefaultWallets({
   appName,

@@ -1,15 +1,12 @@
-//"use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { currencies } from "../../config/currency";
 import { storageChains } from "../../config/storage-chain";
 //import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { RequestNetwork, Types, Utils } from "@requestnetwork/request-client.js";
 import { Web3SignatureProvider } from "@requestnetwork/web3-signature";
-import { parseUnits, zeroAddress } from "viem";
+import { ethers } from "ethers";
 import { useAccount, useWalletClient } from "wagmi";
-
-//import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 enum APP_STATUS {
   AWAITING_INPUT = "awaiting input",
@@ -21,12 +18,12 @@ enum APP_STATUS {
 }
 
 export default function SubmitForm() {
-  const [storageChain, setStorageChain] = useState("5");
+  const [storageChain, setStorageChain] = useState("42220");
   const [expectedAmount, setExpectedAmount] = useState("");
-  const [currency, setCurrency] = useState("5_0xBA62BCfcAaFc6622853cca2BE6Ac7d845BC0f2Dc");
-  //const [paymentRecipient, setPaymentRecipient] = useState("");
+  const [currency, setCurrency] = useState("42220_0x62b8b11039fcfe5ab0c56e502b1c372a3d2a9c7a");
+  const [paymentRecipient, setPaymentRecipient] = useState("");
   const [payerIdentity, setPayerIdentity] = useState("");
-  const [dueDate /*setDueDate*/] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [reason, setReason] = useState("");
   const [status, setStatus] = useState(APP_STATUS.AWAITING_INPUT);
 
@@ -41,9 +38,9 @@ export default function SubmitForm() {
         baseURL: storageChains.get(storageChain)!.gateway,
       },
       signatureProvider,
-      // httpConfig: {
-      //   getConfirmationMaxRetry: 40, // timeout after 120 seconds
-      // },
+      httpConfig: {
+        getConfirmationMaxRetry: 40, // timeout after 120 seconds
+      },
     });
     const requestCreateParameters: Types.ICreateRequestParameters = {
       requestInfo: {
@@ -52,7 +49,9 @@ export default function SubmitForm() {
           value: currencies.get(currency)!.value,
           network: currencies.get(currency)!.network,
         },
-        expectedAmount: parseUnits(expectedAmount as `${number}`, currencies.get(currency)!.decimals).toString(),
+        expectedAmount: ethers.utils
+          .parseUnits(expectedAmount as `${number}`, currencies.get(currency)!.decimals)
+          .toString(),
         payee: {
           type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
           value: address as string,
@@ -63,9 +62,9 @@ export default function SubmitForm() {
         id: Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT,
         parameters: {
           paymentNetworkName: currencies.get(currency)!.network,
-          paymentAddress: /*paymentRecipient || */ address,
-          feeAddress: zeroAddress,
-          feeAmount: "0",
+          paymentAddress: address,
+          feeAddress: ethers.constants.AddressZero,
+          feeAmount: "1",
         },
       },
       contentData: {
@@ -196,11 +195,12 @@ export default function SubmitForm() {
               type="text"
               name="payment-recipient"
               placeholder={address}
-              onChange={e => setPaymentRecipient(e.target.value)}
+              onChange={(e) => setPaymentRecipient(e.target.value)}
               className={styles.h9_w96}
             />
             <p className={styles.text_sm}>
-              The address that will receive the payment. If not specfied, defaults to the Payee Identity.
+              The address that will receive the payment. If not specfied,
+              defaults to the Payee Identity.
             </p>
           </div>
         </label> */}
@@ -225,11 +225,17 @@ export default function SubmitForm() {
         {/* <label>
           Due Date
           <div>
-            <input type="date" name="due-date" onChange={e => setDueDate(e.target.value)} className={styles.h9_w96} />
+            <input
+              type="date"
+              name="due-date"
+              onChange={(e) => setDueDate(e.target.value)}
+              className={styles.h9_w96}
+            />
           </div>
           <p className={styles.text_sm}>
-            The date by which the request should be paid. Due Date is stored in the contentData of the request. For a
-            standardized invoice schema, consider using rnf_invoice format from @requestnetwork/data-format
+            The date by which the request should be paid. Due Date is stored in
+            the contentData of the request. For a standardized invoice schema,
+            consider using rnf_invoice format from @requestnetwork/data-format
           </p>
         </label> */}
         <br></br>
