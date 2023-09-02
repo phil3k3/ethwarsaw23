@@ -37,12 +37,12 @@
   
     const requestCreateParameters = {
       requestInfo: {
-        currency: {
-          type: Types.RequestLogic.CURRENCY.ERC20,
-          value: "0xBA62BCfcAaFc6622853cca2BE6Ac7d845BC0f2Dc",
-          network: "goerli",
-        },
-        expectedAmount: "1000",
+          currency: {
+            type: Types.RequestLogic.CURRENCY.ETH,
+            value: "ETH",
+            network: "goerli",
+          },
+        expectedAmount: "10",
         payee: {
           type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
           value: payeeIdentity,
@@ -54,7 +54,7 @@
         timestamp: Utils.getCurrentTimestampInSecond(),
       },
       paymentNetwork: {
-        id: Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT,
+        id: Types.Extension.PAYMENT_NETWORK_ID.ETH_FEE_PROXY_CONTRACT,
         parameters: {
           paymentNetworkName: "goerli",
           paymentAddress: paymentRecipient,

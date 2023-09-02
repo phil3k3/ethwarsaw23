@@ -56,27 +56,29 @@
       );
 
     if (_hasSufficientFunds) {
-        const _hasErc20Approval = await hasErc20Approval(
-            requestData,
-            payerWallet.address,
-            provider
-        );
-        if (!_hasErc20Approval) {
-            const approvalTx = await approveErc20(requestData, payerWallet);
-            await approvalTx.wait(2);
-        }
+        // const _hasErc20Approval = await hasErc20Approval(
+        //     requestData,
+        //     payerWallet.address,
+        //     provider
+        // );
+        // if (!_hasErc20Approval) {
+        //     const approvalTx = await approveErc20(requestData, payerWallet);
+        //     await approvalTx.wait(2);
+        // }
 
         const paymentTx = await payRequest(requestData, payerWallet);
         await paymentTx.wait(2);
 
         const request = await requestClient.fromRequestId(requestData.requestId);
-        let requestData = request.getData();
+        let requestData2 = request.getData();
 
-        while (requestData.balance?.balance < requestData.expectedAmount) {
+        while (requestData2.balance?.balance < requestData2.expectedAmount) {
             console.log("Waiting for payment to be confirmed...");
             requestData = await request.refresh();
             await new Promise((resolve) => setTimeout(resolve, 1000));
         }
+
+        // TODO burn NFT
     }
     else {
         console.log("Insufficient funds");
