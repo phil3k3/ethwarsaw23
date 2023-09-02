@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { currencies } from "../../config/currency";
 import { storageChains } from "../../config/storage-chain";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+//import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { RequestNetwork, Types, Utils } from "@requestnetwork/request-client.js";
 import { Web3SignatureProvider } from "@requestnetwork/web3-signature";
 import { parseUnits, zeroAddress } from "viem";
 import { useAccount, useWalletClient } from "wagmi";
+import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 enum APP_STATUS {
   AWAITING_INPUT = "awaiting input",
@@ -138,7 +139,8 @@ export default function SubmitForm() {
       <br></br>
       <form onSubmit={handleSubmit} name="submiitform">
         <label>Payee Identity *</label>
-        <ConnectButton chainStatus="none" showBalance={false} />
+        <RainbowKitCustomConnectButton />
+        <FaucetButton />
         <p>
           The identity address of the Payee. Creating a request requires a signature from either the Payee Identity or
           Payer Identity. This demo only supports signing with the Payee Identity.
