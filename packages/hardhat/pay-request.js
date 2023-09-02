@@ -70,7 +70,6 @@
             await new Promise((resolve) => setTimeout(resolve, 1000));
         }
 
-
         // update payment request with correct amount
         // switch to payee wallet
 
