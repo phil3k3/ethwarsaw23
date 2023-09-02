@@ -1,78 +1,48 @@
-# 🏗 Scaffold-ETH 2
+PEERfinance offers an innovative approach to funding early-stage development, making it easier for startups to secure investments in even the most challenging market conditions. Like venture capitalists, traditional avenues often require proof of traction before committing funds. On the other hand, the community is eager to contribute but seeks a meaningful return for their efforts. PEERfinance bridges this gap by introducing a crowdfunding model with a unique twist.
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+## What Sets PEERfinance Apart
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+PEERfinance allows startups to crowdsource their development while promising later compensation. Here's how it works:
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, and Typescript.
+1. **Crowdfunding with Commitment**: Entrepreneurs can obtain loans from individuals who believe in their project's potential and contribute their time or money. 
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+2. **Tokenized Contributions**: The value contributed by these backers is tokenized, ensuring the backers can get their funds when the funding arrives.
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/1171422a-0ce4-4203-bcd4-d2d1941d198b)
+3. **Unlocking Traction**: With the initial support, startups gain the momentum needed to attract further financing. This approach minimizes dilution for founders, helping them maintain control.
 
-## Requirements
+4. **Fair Compensation**: When the primary funding arrives, all contributors can claim their value-added amount and an agreed-upon interest rate.
 
-Before you begin, you need to install the following tools:
+In essence, PEERfinance empowers startups to access critical early-stage funding while enabling contributors to play an active role in a project's success. It's a win-win scenario that ensures fair compensation for all parties involved, ultimately fueling innovation and growth in the entrepreneurial landscape.
 
-- [Node (v18 LTS)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+## How we built it
+Our custom smart contract creates a value accrual token with a fixed interest rate; the future value of the organization treasury backs that. 
 
-## Quickstart
+Then, we used a request network for contributors to issue the invoice for the payment. The contributor requests the payment in dollars, which is sent to our smartcontract to calculate n. of loan tokens that equal that amount. 
 
-To get started with Scaffold-ETH 2, follow the steps below:
+The invoice is issued in loan tokens and passed to multisig holders.
 
-1. Clone this repo & install dependencies
+We use SAFE to review the work and approve and execute the payment. 
 
-```
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
-cd scaffold-eth-2
-yarn install
-```
+Later, we will implement the swap function where contributors can claim repayment of their loan tokens. 
 
-2. Run a local network in the first terminal:
+## Challenges we ran into
+We ran into many challenges with incomplete documentation, which made it harder to make our innovative solution work. Some of the things that we had to solve were: 
+Paying the request has not been working without FEE, which was unclear to us, but we got support from the request team.
 
-```
-yarn chain
-```
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
+## Accomplishments that we're proud of
+The token that accrues value over time based on the interest rate can be a very nice incentive for early contributors, even investors, and help multiple startups get off the ground. Together with a trustless and transparent payment process, this can transform the startup industry.
 
-3. On a second terminal, deploy the test contract:
 
-```
-yarn deploy
-```
+## The Future of PEERfinance
+Our next steps involve transitioning PEERfinance from POC to a production-ready version. This pivotal move will pave the way for more startups to access early-stage funding from the community, thereby bolstering innovation on a broader scale.
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
 
-4. On a third terminal, start your NextJS app:
-
-```
-yarn start
-```
-
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the contract component or the example ui in the frontend. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
-
-Run smart contract test with `yarn hardhat:test`
-
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend in `packages/nextjs/pages`
-- Edit your deployment scripts in `packages/hardhat/deploy`
-
-## Documentation
-
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
-
-To know more about its features, check out our [website](https://scaffoldeth.io).
-
-## Contributing to Scaffold-ETH 2
-
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+## What is the process 
+**Token Creation:** We create a token worth $1 tied to the organization's future funds.
+**Interest and Value Growth:** We set clear interest rates and protections against inflation to ensure the token's value increases over time.
+**Contributor's Input:** Contributors offer help worth a certain amount of $ value (let's call it X dollars) to a startup.
+**Loan Token Calculation:** Smart contracts determine how much of our loan token (let's call it Y) corresponds to the contributor's X dollars.
+**Loan Token Issuance:** Contributors receive Y amount of LOAN tokens based on their input.
+**Funding Arrival:** Contributors can reclaim their loans once the organization secures funding.
+**Token Conversion:** Contributors can exchange their LOAN tokens for Z dollars. Z is calculated considering X (their initial contribution), the time they held the tokens, and the agreed-upon interest rate (APR). This ensures contributors are fairly rewarded for their early support.
