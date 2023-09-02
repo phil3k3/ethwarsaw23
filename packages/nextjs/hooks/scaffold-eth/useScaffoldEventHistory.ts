@@ -3,8 +3,8 @@ import { Abi, AbiEvent, ExtractAbiEventNames } from "abitype";
 import { Hash } from "viem";
 import { usePublicClient } from "wagmi";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-eth";
-import { replacer } from "~~/utils/scaffold-eth/common";
-import { ContractAbi, ContractName, UseScaffoldEventHistoryConfig } from "~~/utils/scaffold-eth/contract";
+import { replacer } from "~~/src/utils/scaffold-eth/common";
+import { ContractAbi, ContractName, UseScaffoldEventHistoryConfig } from "~~/src/utils/scaffold-eth/contract";
 
 /**
  * @dev reads events from a deployed contract

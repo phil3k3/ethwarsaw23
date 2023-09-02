@@ -2,8 +2,8 @@ import { Abi, ExtractAbiEventNames } from "abitype";
 import { Log } from "viem";
 import { useContractEvent } from "wagmi";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-eth";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
-import { ContractAbi, ContractName, UseScaffoldEventConfig } from "~~/utils/scaffold-eth/contract";
+import { getTargetNetwork } from "~~/src/utils/scaffold-eth";
+import { ContractAbi, ContractName, UseScaffoldEventConfig } from "~~/src/utils/scaffold-eth/contract";
 
 /**
  * @dev wrapper for wagmi's useContractEvent

@@ -2,7 +2,7 @@ import { Account, Address, Transport, getContract } from "viem";
 import { Chain, PublicClient, usePublicClient } from "wagmi";
 import { GetWalletClientResult } from "wagmi/actions";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-eth";
-import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
+import { Contract, ContractName } from "~~/src/utils/scaffold-eth/contract";
 
 /**
  * Gets a deployed contract by contract name and returns a contract instance

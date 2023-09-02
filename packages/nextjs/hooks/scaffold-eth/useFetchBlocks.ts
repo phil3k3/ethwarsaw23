@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Block, Transaction, TransactionReceipt } from "viem";
 import { usePublicClient } from "wagmi";
 import { hardhat } from "wagmi/chains";
-import { decodeTransactionData } from "~~/utils/scaffold-eth";
+import { decodeTransactionData } from "~~/src/utils/scaffold-eth";
 
 const BLOCKS_PER_PAGE = 20;
 
