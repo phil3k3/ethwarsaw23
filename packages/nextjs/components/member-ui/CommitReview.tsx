@@ -1,13 +1,8 @@
 import { useState } from "react";
-import { CopyIcon } from "../example-ui/assets/CopyIcon";
-import { DiamondIcon } from "../example-ui/assets/DiamondIcon";
-import { HareIcon } from "../example-ui/assets/HareIcon";
-import { ArrowSmallRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const CommitReview = () => {
-  const [visible, setVisible] = useState(true);
-  const [newGreeting, setNewGreeting] = useState("");
+  const [newGreeting] = useState("");
 
   const { writeAsync, isLoading } = useScaffoldContractWrite({
     contractName: "YourContract",
@@ -21,59 +16,29 @@ export const CommitReview = () => {
 
   return (
     <div className="flex bg-base-300 relative pb-10">
-      <DiamondIcon className="absolute top-24" />
-      <CopyIcon className="absolute bottom-0 left-36" />
-      <HareIcon className="absolute right-0 bottom-24" />
-      <div className="flex flex-col w-full mx-5 sm:mx-8 2xl:mx-20">
-        <div className={`mt-10 flex gap-2 ${visible ? "" : "invisible"} max-w-2xl`}>
-          <div className="flex gap-5 bg-base-200 bg-opacity-80 z-0 p-7 rounded-2xl shadow-lg">
-            <span className="text-3xl">👋🏻</span>
-            <div>
-              <div>
-                In this page you can see how some of our <strong>hooks & components</strong> work, and how you can bring
-                them to life with your own design! Have fun and try it out!
-              </div>
-              <div className="mt-2">
-                Check out{" "}
-                <code className="italic bg-base-300 text-base font-bold [word-spacing:-0.5rem]">
-                  packages / nextjs/pages / example-ui.tsx
-                </code>{" "}
-                and its underlying components.
-              </div>
-            </div>
-          </div>
-          <button
-            className="btn btn-circle btn-ghost h-6 w-6 bg-base-200 bg-opacity-80 z-0 min-h-0 drop-shadow-md"
-            onClick={() => setVisible(false)}
-          >
-            <XMarkIcon className="h-4 w-4" />
-          </button>
-        </div>
-
+      <div className="flex flex-col flex-grow w-full mx-5 sm:mx-8 2xl:mx-20">
         <div className="flex flex-col mt-6 px-7 py-8 bg-base-200 opacity-80 rounded-2xl shadow-lg border-2 border-primary">
-          <span className="text-4xl sm:text-6xl text-black">Set a Greeting_</span>
+          <span className="text-4xl sm:text-6xl text-black">Work for review</span>
+          <div className="flex flex-col mt-6 px-7 py-8 bg-base-200 opacity-80 rounded-2xl shadow-lg border-2 border-primary">
+            <div className="flex flex-col border border-primary p-1 border-opacity-30 rounded-2xl flex-shrink-0">
+              <div className="flex flex-col border border-primary rounded-2xl p-1 flex-shrink-0 pl-10 pr-10 mt-10 mb-10">
+                <p>Here goes the transaction details to be approved</p>
+              </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-5">
-            <input
-              type="text"
-              placeholder="Write your greeting here"
-              className="input font-bai-jamjuree w-full px-5 bg-[url('/assets/gradient-bg.png')] bg-[length:100%_100%] border border-primary text-lg sm:text-2xl placeholder-white uppercase"
-              onChange={e => setNewGreeting(e.target.value)}
-            />
-            <div className="flex rounded-full border border-primary p-1 flex-shrink-0">
-              <div className="flex rounded-full border-2 border-primary p-1">
+              <div className="flex items-center rounded-2xl justify-around">
                 <button
                   className="btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest"
                   onClick={() => writeAsync()}
                   disabled={isLoading}
                 >
-                  {isLoading ? (
-                    <span className="loading loading-spinner loading-sm"></span>
-                  ) : (
-                    <>
-                      Send <ArrowSmallRightIcon className="w-3 h-3 mt-0.5" />
-                    </>
-                  )}
+                  {isLoading ? <span className="loading loading-spinner loading-sm"></span> : <>Approve</>}
+                </button>
+                <button
+                  className="btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest"
+                  onClick={() => writeAsync()}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <span className="loading loading-spinner loading-sm"></span> : <>Reject</>}
                 </button>
               </div>
             </div>

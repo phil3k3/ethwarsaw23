@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import styles from "../../../nextjs/utils/page.module.css";
 import { currencies } from "../../config/currency";
 import { storageChains } from "../../config/storage-chain";
+import styles from "../../utils/page.module.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { RequestNetwork, Types, Utils } from "@requestnetwork/request-client.js";
@@ -24,9 +24,9 @@ export default function SubmitForm() {
   const [storageChain, setStorageChain] = useState("5");
   const [expectedAmount, setExpectedAmount] = useState("");
   const [currency, setCurrency] = useState("5_0xBA62BCfcAaFc6622853cca2BE6Ac7d845BC0f2Dc");
-  const [paymentRecipient, setPaymentRecipient] = useState("");
+  //const [paymentRecipient, setPaymentRecipient] = useState("");
   const [payerIdentity, setPayerIdentity] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate /*setDueDate*/] = useState("");
   const [reason, setReason] = useState("");
   const [status, setStatus] = useState(APP_STATUS.AWAITING_INPUT);
 
@@ -63,7 +63,7 @@ export default function SubmitForm() {
         id: Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT,
         parameters: {
           paymentNetworkName: currencies.get(currency)!.network,
-          paymentAddress: paymentRecipient || address,
+          paymentAddress: /*paymentRecipient || */ address,
           feeAddress: zeroAddress,
           feeAmount: "0",
         },
@@ -111,7 +111,7 @@ export default function SubmitForm() {
       !isLoading &&
       storageChain.length > 0 &&
       // Payment Recipient is empty || isAddress
-      (paymentRecipient.length === 0 || (paymentRecipient.startsWith("0x") && paymentRecipient.length === 42)) &&
+      //(paymentRecipient.length === 0 || (paymentRecipient.startsWith("0x") && paymentRecipient.length === 42)) &&
       // Payer is empty || isAddress
       (payerIdentity.length === 0 || (payerIdentity.startsWith("0x") && payerIdentity.length === 42)) &&
       expectedAmount.length > 0 &&
@@ -137,11 +137,6 @@ export default function SubmitForm() {
   return (
     <div>
       <h3>Create a request</h3>
-      <ul>
-        <li>&#8226; This demo creates an unencrypted ERC20 request.</li>
-        <li>&#8226; The code is intentionally simple with minimal dependencies.</li>
-        <li>&#8226; Input fields annotated with a * are required.</li>
-      </ul>
       <br></br>
       <form onSubmit={handleSubmit}>
         <label>Payee Identity *</label>
@@ -208,7 +203,7 @@ export default function SubmitForm() {
             <p className={styles.text_sm}>The requested currency. This determines the Payment Chain.</p>
           </div>
         </label>
-        <br></br>
+        {/* <br></br>
         <label>
           Payment Recipient
           <div>
@@ -223,7 +218,7 @@ export default function SubmitForm() {
               The address that will receive the payment. If not specfied, defaults to the Payee Identity.
             </p>
           </div>
-        </label>
+        </label> */}
         <br></br>
         <label>
           Payer Identity
@@ -243,7 +238,7 @@ export default function SubmitForm() {
           </div>
         </label>
         <br></br>
-        <label>
+        {/* <label>
           Due Date
           <div>
             <input type="date" name="due-date" onChange={e => setDueDate(e.target.value)} className={styles.h9_w96} />
@@ -252,7 +247,7 @@ export default function SubmitForm() {
             The date by which the request should be paid. Due Date is stored in the contentData of the request. For a
             standardized invoice schema, consider using rnf_invoice format from @requestnetwork/data-format
           </p>
-        </label>
+        </label> */}
         <br></br>
         <label>
           Reason

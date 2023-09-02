@@ -11,7 +11,7 @@ const ContributorForm: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
       <div className="flex flex-col items-center flex-grow pt-10" data-theme="contributorUI">
-        <p>rendering the contributor form ok</p>
+        <h1>Submit your work for review</h1>
         <SubmitForm />
       </div>
     </>
