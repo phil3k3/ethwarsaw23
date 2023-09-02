@@ -1,16 +1,14 @@
 import React from "react";
 import Link from "next/link";
-import { MetaHeader } from "~~/components/MetaHeader";
 
 const SubmitTaskButton = () => {
   return (
     <>
-      <MetaHeader />
-      <div>
+      <button>
         <Link href="/contributor-form" passHref className="link">
           Submission Form
         </Link>{" "}
-      </div>
+      </button>
     </>
   );
 };
