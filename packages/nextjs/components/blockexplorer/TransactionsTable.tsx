@@ -2,7 +2,7 @@ import { formatEther } from "viem";
 import { TransactionHash } from "~~/components/blockexplorer/TransactionHash";
 import { Address } from "~~/components/scaffold-eth";
 import { TransactionWithFunction, getTargetNetwork } from "~~/utils/scaffold-eth";
-import { TransactionsTableProps } from "~~/utils/scaffold-eth/";
+import { TransactionsTableProps } from "~~/utils/scaffold-eth";
 
 export const TransactionsTable = ({ blocks, transactionReceipts, isLoading }: TransactionsTableProps) => {
   const targetNetwork = getTargetNetwork();

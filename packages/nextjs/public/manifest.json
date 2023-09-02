@@ -1,0 +1,25 @@
+{
+	"theme_color": "#000000",
+	"background_color": "#ffffff",
+	"display": "standalone",
+	"scope": "/",
+	"start_url": "/",
+	"name": "ETHWarsaw23",
+	"short_name": "ETHWarsaw23",
+	"description": "ETHWarsaw23 hackathon project",
+	"icons": [
+		{
+			"src": "./favico.png",
+			"sizes": "196x196",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "./favicon.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any maskable"
+		}
+
+	]
+}
