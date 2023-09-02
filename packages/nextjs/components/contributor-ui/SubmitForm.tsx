@@ -8,8 +8,7 @@
 // import { Web3SignatureProvider } from "@requestnetwork/web3-signature";
 // import { parseUnits, zeroAddress } from "viem";
 // import { useAccount, useWalletClient } from "wagmi";
-
-// //import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 // enum APP_STATUS {
 //   AWAITING_INPUT = "awaiting input",
@@ -134,7 +133,12 @@ export default function SubmitForm() {
   //     setStatus(APP_STATUS.AWAITING_INPUT);
   //   }
 
-  return <div></div>;
+  return (
+    <div>
+      <RainbowKitCustomConnectButton />
+      <FaucetButton />
+    </div>
+  );
   //     <div>
   //       <h3>Create a request</h3>
   //       <br></br>
