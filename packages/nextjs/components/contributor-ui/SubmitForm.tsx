@@ -19,7 +19,8 @@ import { storageChains } from "../../config/storage-chain";
 // import "@rainbow-me/rainbowkit/styles.css";
 import { RequestNetwork, Types, Utils } from "@requestnetwork/request-client.js";
 import { Web3SignatureProvider } from "@requestnetwork/web3-signature";
-import { parseUnits, zeroAddress } from "viem";
+import { ethers } from "ethers";
+//import { parseUnits, zeroAddress } from "viem";
 import { useAccount, useWalletClient } from "wagmi";
 
 //import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
@@ -65,7 +66,9 @@ export default function SubmitForm() {
           value: currencies.get(currency)!.value,
           network: currencies.get(currency)!.network,
         },
-        expectedAmount: parseUnits(expectedAmount as `${number}`, currencies.get(currency)!.decimals).toString(),
+        expectedAmount: ethers.utils
+          .parseUnits(expectedAmount as `${number}`, currencies.get(currency)!.decimals)
+          .toString(),
         payee: {
           type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
           value: address as string,
@@ -77,7 +80,7 @@ export default function SubmitForm() {
         parameters: {
           paymentNetworkName: currencies.get(currency)!.network,
           paymentAddress: /*paymentRecipient || */ address,
-          feeAddress: zeroAddress,
+          feeAddress: ethers.constants.AddressZero,
           feeAmount: "0",
         },
       },
