@@ -31,6 +31,7 @@
   },
   "packageManager": "yarn@3.2.3",
   "devDependencies": {
+    "@types/eccrypto": "^1",
     "@types/express": "^4",
     "husky": "^8.0.1",
     "lint-staged": "^14.0.1"
@@ -41,7 +42,10 @@
   "dependencies": {
     "@prisma/client": "^5.2.0",
     "@requestnetwork/request-client.js": "^0.40.0",
+    "@requestnetwork/web3-signature": "^0.4.36",
+    "eccrypto": "^1.1.6",
     "express": "^4.18.2",
+    "node-gyp": "^9.4.0",
     "react-hot-toast": "^2.4.1"
   }
 }
