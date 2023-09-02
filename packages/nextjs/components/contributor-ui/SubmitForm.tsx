@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { currencies } from "../../config/currency";
 import { storageChains } from "../../config/storage-chain";
-import styles from "../../utils/page.module.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { RequestNetwork, Types, Utils } from "@requestnetwork/request-client.js";
@@ -140,27 +139,22 @@ export default function SubmitForm() {
       <form onSubmit={handleSubmit}>
         <label>Payee Identity *</label>
         <ConnectButton chainStatus="none" showBalance={false} />
-        <p className={styles.text_sm}>
+        <p>
           The identity address of the Payee. Creating a request requires a signature from either the Payee Identity or
-          Payer Identity. This demo only supports signing with the Payee Identity. {styles.w_96}
+          Payer Identity. This demo only supports signing with the Payee Identity.
         </p>
         <br></br>
         <label>
           Storage Chain *
           <div>
-            <select
-              name="storage-chain"
-              onChange={e => setStorageChain(e.target.value)}
-              defaultValue={storageChain}
-              className={styles.h9_w96}
-            >
+            <select name="storage-chain" onChange={e => setStorageChain(e.target.value)} defaultValue={storageChain}>
               {Array.from(storageChains.entries()).map(([key, value]) => (
                 <option key={key} value={key}>
                   {value.name} ({value.type})
                 </option>
               ))}
             </select>
-            <p className={styles.text_sm}>
+            <p>
               A hash of the request contents (IPFS CID) is stored on the Storage Chain regardless of the selected
               Currency and Payment Chain.
             </p>
@@ -170,14 +164,8 @@ export default function SubmitForm() {
         <label>
           Amount *
           <div>
-            <input
-              type="number"
-              name="expected-amount"
-              step="any"
-              onChange={e => setExpectedAmount(e.target.value)}
-              className={styles.h9_w96}
-            />
-            <p className={styles.text_sm}>
+            <input type="number" name="expected-amount" step="any" onChange={e => setExpectedAmount(e.target.value)} />
+            <p>
               The requested amount in human-readable units. This demo uses viem&apos;s parseUnits function to convert to
               EVM-compatible units, respecting the token&apos;s decimals.
             </p>
@@ -187,19 +175,14 @@ export default function SubmitForm() {
         <label>
           Currency *
           <div>
-            <select
-              name="currency"
-              onChange={e => setCurrency(e.target.value)}
-              defaultValue={currency}
-              className={styles.h9_w96}
-            >
+            <select name="currency" onChange={e => setCurrency(e.target.value)} defaultValue={currency}>
               {Array.from(currencies.entries()).map(([key, value]) => (
                 <option key={key} value={key}>
                   {value.symbol} ({value.network})
                 </option>
               ))}
             </select>
-            <p className={styles.text_sm}>The requested currency. This determines the Payment Chain.</p>
+            <p>The requested currency. This determines the Payment Chain.</p>
           </div>
         </label>
         {/* <br></br>
@@ -227,9 +210,8 @@ export default function SubmitForm() {
               name="payer-identity"
               placeholder="0x..."
               onChange={e => setPayerIdentity(e.target.value)}
-              className={styles.h9_w96}
             />
-            <p className={styles.text_sm}>
+            <p>
               The identity address of the Payer. The Payer will see this request the next time they query requests
               associated with their identity. A request without a Payer Identity can be paid by any identity but
               requires an out-of-band notification to notify the Payer.
@@ -251,22 +233,22 @@ export default function SubmitForm() {
         <label>
           Reason
           <div>
-            <input type="text" name="reason" onChange={e => setReason(e.target.value)} className={styles.h9_w96} />
+            <input type="text" name="reason" onChange={e => setReason(e.target.value)} />
           </div>
-          <p className={styles.text_sm}>
+          <p>
             The reason for the request. Reason is stored in the contentData of the request. For a standardized invoice
             schema, consider using rnf_invoice format from @requestnetwork/data-format
           </p>
         </label>
         <br></br>
-        <button type="submit" disabled={!canSubmit()} className={styles.h9_w24}>
+        <button type="submit" disabled={!canSubmit()}>
           Submit
         </button>
       </form>
       <br></br>
       <div>
         <h3>Created request</h3>
-        <button type="button" onClick={handleClear} className={styles.h9_w24}>
+        <button type="button" onClick={handleClear}>
           Clear
         </button>
         <p>App status: {status}</p>
