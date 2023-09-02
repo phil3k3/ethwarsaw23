@@ -33,9 +33,8 @@ Paying the request has not been working without FEE, which was unclear to us, bu
 ## Accomplishments that we're proud of
 The token that accrues value over time based on the interest rate can be a very nice incentive for early contributors, even investors, and help multiple startups get off the ground. Together with a trustless and transparent payment process, this can transform the startup industry.
 
-## What we learned
 
-##The Future of PEERfinance
+## The Future of PEERfinance
 Our next steps involve transitioning PEERfinance from POC to a production-ready version. This pivotal move will pave the way for more startups to access early-stage funding from the community, thereby bolstering innovation on a broader scale.
 
 
