@@ -10,7 +10,7 @@
     const { config } = require("dotenv");
     const { ethers, providers, Wallet, getDefaultProvider} = require("ethers"); 
     const WorkItem  = require("./artifacts/contracts/WorkItem.sol/WorkItemNFT.json");
-  
+
     // // Load environment variables from .env file
     config();
     console.log("Config loaded");
@@ -42,7 +42,7 @@
             value: 0x0,
             network: "goerli",
           },
-        expectedAmount: "10",
+          expectedAmount: "10",
         payee: {
           type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
           value: payeeIdentity,
@@ -59,7 +59,7 @@
           paymentNetworkName: "goerli",
           paymentAddress: paymentRecipient,
           feeAddress: feeRecipient,
-          feeAmount: "0",
+          feeAmount: "10000"
         },
       },
       contentData: {
@@ -84,7 +84,21 @@
         wallet
     );
 
-    const txResponse = workItem.mint(process.env.PAYEE_PUBLIC_KEY, "myGitHash", request.requestId, 1000, 3);
-    const receipt = await txResponse;
-    console.log("NFT minted in block:", receipt);
+    // const nftMetadata= {
+    //   "name": "Your NFT Name",
+    //   "description": "A brief description of your NFT.",
+    //   "image": "https://yourwebsite.com/path/to/your/logo.png"
+    // }
+
+    // const buffer = Buffer.from(JSON.stringify(nftMetadata));
+    try {
+      // const result = await ipfs.add(buffer);
+      // console.log(result.path);
+
+      const txResponse = workItem.mint(process.env.PAYEE_PUBLIC_KEY, "myGitHash", request.requestId, 1000, 3, "path");
+      const receipt = await txResponse;
+      console.log("NFT minted in block:", receipt);
+    } catch (error) {
+      console.error("Error adding file:", error);
+    }
   })();

@@ -6,10 +6,14 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract WorkItemNFT is ERC721URIStorage {
 
-    mapping(uint256 => string) private _gitHashes;
-    mapping(uint256 => string) private _requestIds;
-    mapping(uint256 => uint8) private _interests;
-    mapping(uint256 => uint256) private _values;
+    struct Metadata { 
+        string gitHubHash;
+        uint256 amount;
+        uint8 interestRate;
+        string requestId;
+    }
+
+    mapping(uint256 => Metadata) private _metadata;
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
@@ -22,23 +26,27 @@ contract WorkItemNFT is ERC721URIStorage {
         string memory gitHash,
         string memory requestId,
         uint256 value,
-        uint8 interest
+        uint8 interest,
+        string memory tokenURI
     ) public returns (uint256) {
         uint256 newTokenId = _tokenIds.current();
 
         _mint(to, newTokenId);
 
-        _gitHashes[newTokenId] = gitHash;
-        _requestIds[newTokenId] = requestId;
-        _interests[newTokenId] = interest;
-        _values[newTokenId] = value;
+        _metadata[newTokenId] = Metadata(gitHash, value, interest, requestId);
 
         _tokenIds.increment();
+        _setTokenURI(newTokenId, tokenURI);
+        
         return newTokenId;
     }
    
     function burn(uint256 tokenId) public {
         require(ownerOf(tokenId) == msg.sender, "Not the owner");
         _burn(tokenId);
+    }
+
+    function getMetadata(uint256 tokenId) public view returns (Metadata memory) {
+        return _metadata[tokenId];
     }
 }
