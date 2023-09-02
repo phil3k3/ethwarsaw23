@@ -1,22 +1,32 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
 
-class SubmitForm extends React.Component<NonNullable<unknown>, { value: string }> {
+// //For the transaction
+// import { useDebounce } from 'use-debounce'
+// import { usePrepareSendTransaction } from 'wagmi'
+// import { parseEther } from 'viem'
+
+class SubmitForm extends React.Component<NonNullable<unknown>, { githubValue: string; priceValue: string }> {
   constructor(props: NonNullable<unknown>) {
     super(props);
-    this.state = { value: "" };
+    this.state = { githubValue: "", priceValue: "" };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleGithubChange = this.handleGithubChange.bind(this);
+    this.handlePriceChange = this.handlePriceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({ value: event.target.value });
+  handleGithubChange(event: ChangeEvent<HTMLInputElement>) {
+    this.setState({ githubValue: event.target.value });
+  }
+
+  handlePriceChange(event: ChangeEvent<HTMLInputElement>) {
+    this.setState({ priceValue: event.target.value });
   }
 
   handleSubmit(event: FormEvent<HTMLFormElement>) {
     // Corrected parameter type
-    alert("A name was submitted: " + this.state.value);
+    alert("GitHub ID: " + this.state.githubValue + "\nPrice: " + this.state.priceValue);
     event.preventDefault();
 
     // // Use the useRouter hook to navigate to the "thanks-submitting" page
@@ -24,17 +34,28 @@ class SubmitForm extends React.Component<NonNullable<unknown>, { value: string }
     // router.push('/contributor'); // Replace with the actual path to your "thanks-submitting" page
   }
 
+  //For the transaction
+
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Commit Github Id:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Commit Github Id:
+            <input type="text" value={this.state.githubValue} onChange={this.handleGithubChange} />
+          </label>
+          <label>
+            Price:
+            <input type="number" value={this.state.priceValue} onChange={this.handlePriceChange} />
+          </label>
+          <button disabled={!this.state.priceValue || !this.state.githubValue} type="submit">
+            Submit
+          </button>
+        </form>
         <Link legacyBehavior href="/contributor">
-          <a>Submit</a>
+          <a>Go back</a>
         </Link>
-      </form>
+      </div>
     );
   }
 }
