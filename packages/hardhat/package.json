@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.1",
+    "@requestnetwork/payment-processor": "^0.38.1-next.1918",
     "@requestnetwork/request-client.js": "^0.40.1-next.1918",
     "dotenv": "^16.0.3",
     "envfile": "^6.18.0",
