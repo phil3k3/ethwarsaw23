@@ -35,4 +35,28 @@ export const currencies = new Map<string, ICurrency>([
       type: Types.RequestLogic.CURRENCY.ERC20,
     },
   ],
+  [
+    "42220_0x161593Dd4DB90b86FC51d782c5DEBf77418F6398",
+    {
+      name: "DAO Token",
+      symbol: "DAO",
+      value: "0x161593Dd4DB90b86FC51d782c5DEBf77418F6398",
+      chainId: 42220,
+      network: "celo",
+      decimals: 18,
+      type: Types.RequestLogic.CURRENCY.ERC20,
+    },
+  ],
+  [
+    "42220_0x62B8B11039FcfE5aB0C56E502b1C372A3d2a9c7A",
+    {
+      name: "Good Dollar",
+      symbol: "G",
+      value: "0x62B8B11039FcfE5aB0C56E502b1C372A3d2a9c7A",
+      chainId: 42220,
+      network: "celo",
+      decimals: 18,
+      type: Types.RequestLogic.CURRENCY.ERC20,
+    },
+  ],
 ]);
