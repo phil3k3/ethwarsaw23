@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TransactionReceipt } from "viem";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const CommitReview = () => {
@@ -9,7 +10,7 @@ export const CommitReview = () => {
     functionName: "setGreeting",
     args: [newGreeting],
     value: "0.01",
-    onBlockConfirmation: txnReceipt => {
+    onBlockConfirmation: (txnReceipt: TransactionReceipt) => {
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
     },
   });
