@@ -1,55 +1,85 @@
-import { useState } from "react";
 import { TransactionReceipt } from "viem";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useAccount, useWalletClient } from "wagmi";
+import { RequestNetwork, Types }from "@requestnetwork/request-client.js";
+import React, { useState, useEffect } from 'react';
+import { DataTable } from "./DataTable";
+import { ethers } from 'ethers';
 
 export const CommitReview = () => {
-  const [newGreeting] = useState("");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const { writeAsync, isLoading } = useScaffoldContractWrite({
-    contractName: "YourContract",
-    functionName: "setGreeting",
-    args: [newGreeting],
-    value: "0.01",
-    onBlockConfirmation: (txnReceipt: TransactionReceipt) => {
-      console.log("📦 Transaction blockHash", txnReceipt.blockHash);
-    },
-  });
+  const { address } = useAccount();
 
+  useEffect(() => {
+    fetchData();
+  }, []);  // The empty dependency array means this effect will run once when the component mounts.
+  
+
+  const fetchData = async () => {
+    try {
+      const requestClient = new RequestNetwork({
+        nodeConnectionConfig: {
+          baseURL: "https://goerli.gateway.request.network/",
+        }
+      });
+  
+      const requests = await requestClient.fromIdentity({
+        type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
+        value: address
+      });
+
+      const data = {};
+      data.requests = [];
+      data.price = 0.0;
+
+      console.log(requests);
+      
+
+      if (requests) {
+        const requestsTransformed = requests.map((request) => {
+          return {
+            githubId: request.contentData?.reason,
+            walletAddress: request.requestData?.payee.value,
+            amount: request.requestData?.expectedAmount,
+            status: request.requestData?.state,
+            transactionDate: request.requestData?.timestamp,
+            requestId: request.requestData?.requestId
+          }
+        });
+
+        // const price = requestsTransformed
+        //     .map((request) => parseInt(request.amount))
+        //     .reduce((a, b) => a + b, 0);
+        const price = 0;
+          
+        console.log(price);
+
+        data.requests = requestsTransformed;
+        data.price = price;
+      }
+      
+      console.log(data);
+    
+      setData(data);
+      setLoading(false);
+  } catch (err) {
+    setError(err);
+    setLoading(false);
+  }
+}
   return (
     <div className="flex bg-base-300 relative pb-10">
       <div className="flex flex-col flex-grow w-full mx-5 sm:mx-8 2xl:mx-20">
-        <div className="flex flex-col mt-6 px-7 py-8 bg-base-200 opacity-80 rounded-2xl shadow-lg border-2 border-primary">
-          <span className="text-4xl sm:text-6xl text-black">Work for review</span>
-          <div className="flex flex-col mt-6 px-7 py-8 bg-base-200 opacity-80 rounded-2xl shadow-lg border-2 border-primary">
-            <div className="flex flex-col border border-primary p-1 border-opacity-30 rounded-2xl flex-shrink-0">
-              <div className="flex flex-col border border-primary rounded-2xl p-1 flex-shrink-0 pl-10 pr-10 mt-10 mb-10">
-                <p>Here goes the transaction details to be approved</p>
-              </div>
-
-              <div className="flex items-center rounded-2xl justify-around">
-                <button
-                  className="btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest"
-                  onClick={() => writeAsync()}
-                  disabled={isLoading}
-                >
-                  {isLoading ? <span className="loading loading-spinner loading-sm"></span> : <>Approve</>}
-                </button>
-                <button
-                  className="btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest"
-                  onClick={() => writeAsync()}
-                  disabled={isLoading}
-                >
-                  {isLoading ? <span className="loading loading-spinner loading-sm"></span> : <>Reject</>}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 flex gap-2 items-start">
-            <span className="text-sm leading-tight">Price:</span>
-            <div className="badge badge-warning">0.01 ETH + Gas</div>
-          </div>
-        </div>
+              {loading ? (
+                <p>Loading...</p>
+              ) : error ? (
+                <p>Error loading data: {error.message}</p>
+              ) : (
+                <DataTable data={data} />
+              )}
       </div>
     </div>
   );

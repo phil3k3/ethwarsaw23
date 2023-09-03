@@ -38,7 +38,7 @@
           currency: {
             type: Types.RequestLogic.CURRENCY.ERC20,
             value: process.env.WORKITEM_TOKEN_ADDRESS,
-            network: "goerli",
+            network: "celo",
           },
           expectedAmount: "50",
         payee: {
@@ -54,14 +54,14 @@
       paymentNetwork: {
         id: Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT,
         parameters: {
-          paymentNetworkName: "goerli",
+          paymentNetworkName: "celo",
           paymentAddress: paymentRecipient,
           feeAddress: feeRecipient,
           feeAmount: "10"
         },
       },
       contentData: {
-        reason: "🍕",
+        reason: "some Work item",
         dueDate: "2023.10.25",
       },
       signer: {
