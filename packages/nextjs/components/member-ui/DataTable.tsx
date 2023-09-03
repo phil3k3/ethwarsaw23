@@ -140,23 +140,26 @@ export const DataTable = ({ data })  => {
                   <div className="flex flex-col border border-primary rounded-2xl p-1 flex-shrink-0 pl-10 pr-10 mt-10 mb-10">
                     <p>Here goes the transaction details to be approved</p>
                   </div>
+                  <table>
                   {data.requests.map((entry, index) => (
-                    <div className="flex items-center rounded-2xl justify-around">
-                        {entry.githubId}  {entry.walletAddress} {entry.amount}  {entry.status}  {entry.transactionDate}
-                            <button
+                    <tr>
+                      <td>{entry.githubId}</td>
+                      <td>{entry.walletAddress}</td>
+                      <td>{entry.amount}</td>
+                      <td>{entry.status}</td>
+                      <td>{entry.transactionDate}</td>
+                      <td>  <button
                                 className="btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest"
                                 onClick={() => proposeInvoice(entry)}
                             >
                             <>Propose</>   
-                            </button>
-                            <button
-                                className="btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest"
-                                onClick={() => cancelInvoice(entry)}
-                            >
-                            <>Reject</>
-                            </button>
-                    </div>
+                            </button></td>
+                      <td>
+                          {entry.multiSigApprovers}
+                      </td>
+                    </tr>
                   ))}
+                  </table>
                 </div>
               </div>
     

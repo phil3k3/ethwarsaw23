@@ -46,7 +46,8 @@ export const CommitReview = () => {
             amount: request.requestData?.expectedAmount,
             status: request.requestData?.state,
             transactionDate: request.requestData?.timestamp,
-            requestId: request.requestData?.requestId
+            requestId: request.requestData?.requestId,
+            multiSigApprovers: 0
           }
         });
 
