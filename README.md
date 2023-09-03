@@ -33,16 +33,16 @@ Paying the request has not been working without FEE, which was unclear to us, bu
 ## Accomplishments that we're proud of
 The token that accrues value over time based on the interest rate can be a very nice incentive for early contributors, even investors, and help multiple startups get off the ground. Together with a trustless and transparent payment process, this can transform the startup industry.
 
+## What we learned
 
-## The Future of PEERfinance
+##The Future of PEERfinance
 Our next steps involve transitioning PEERfinance from POC to a production-ready version. This pivotal move will pave the way for more startups to access early-stage funding from the community, thereby bolstering innovation on a broader scale.
 
 
-## What is the process 
-**Token Creation:** We create a token worth $1 tied to the organization's future funds.
-**Interest and Value Growth:** We set clear interest rates and protections against inflation to ensure the token's value increases over time.
-**Contributor's Input:** Contributors offer help worth a certain amount of $ value (let's call it X dollars) to a startup.
-**Loan Token Calculation:** Smart contracts determine how much of our loan token (let's call it Y) corresponds to the contributor's X dollars.
-**Loan Token Issuance:** Contributors receive Y amount of LOAN tokens based on their input.
-**Funding Arrival:** Contributors can reclaim their loans once the organization secures funding.
-**Token Conversion:** Contributors can exchange their LOAN tokens for Z dollars. Z is calculated considering X (their initial contribution), the time they held the tokens, and the agreed-upon interest rate (APR). This ensures contributors are fairly rewarded for their early support.
+Token Creation: We create a token worth $1 tied to the organization's future funds.
+Interest and Value Growth: We set clear interest rates and protections against inflation to ensure the token's value increases over time.
+Contributor's Input: Contributors offer help worth a certain amount of $ value (let's call it X dollars) to a startup.
+Loan Token Calculation: Smart contracts determine how much of our loan token (let's call it Y) corresponds to the contributor's X dollars.
+Loan Token Issuance: Contributors receive Y amount of LOAN tokens based on their input.
+Funding Arrival: Contributors can reclaim their loans once the organization secures funding.
+Token Conversion: Contributors can exchange their LOAN tokens for Z dollars. Z is calculated considering X (their initial contribution), the time they held the tokens, and the agreed-upon interest rate (APR). This ensures contributors are fairly rewarded for their early support.
