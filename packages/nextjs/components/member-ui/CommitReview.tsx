@@ -28,7 +28,7 @@ export const CommitReview = () => {
   
       const requests = await requestClient.fromIdentity({
         type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
-        value: address
+        value: "0x6311999EDa3500fD06E2C1F1dFD92Bb19735dE88"
       });
 
       const data = {};
@@ -45,9 +45,7 @@ export const CommitReview = () => {
       
 
       if (requests) {
-        const requestsTransformed = requests.filter(
-          (request) => request.requestData?.expectedAmount.length < 10 && request.contentData?.reason.length > 2
-        ).map((request) => {
+        const requestsTransformed = requests.map((request) => {
           return {
             githubId: request.contentData?.reason,
             walletAddress: formatAddress(request.requestData?.payee.value),

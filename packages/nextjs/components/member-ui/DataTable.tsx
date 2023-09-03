@@ -154,7 +154,7 @@ export const DataTable = ({ data })  => {
                     <tr>
                       <td>{entry.githubId}</td>
                       <td class="eth-address">{entry.walletAddress}</td>
-                      <td>{ethers.utils.formatEther(parseInt(entry.amount))}</td>
+                      <td>{entry.amount.length > 10 ? entry.amount : ethers.utils.formatEther(parseInt(entry.amount))}</td>
                       <td>{entry.status}</td>
                       <td>{entry.transactionDate}</td>
                       <td>  <button
