@@ -9,6 +9,7 @@ import Safe from "@safe-global/protocol-kit";
 import { MetaTransactionData } from "@safe-global/safe-core-sdk-types";
 
 import * as React from 'react'
+import { useState } from 'react';
 import { type PublicClient, usePublicClient } from 'wagmi'
 import { providers } from 'ethers'
 import { type HttpTransport } from 'viem'
@@ -40,6 +41,8 @@ export const DataTable = ({ data })  => {
     console.log(DaoToken);
     const { address } = useAccount();
     const { data: walletClient } = useWalletClient();
+    const [buttonText, setButtonText] = useState('Click Me');
+    const [loading, setLoading] = useState(false);
 
     const provider = useEthersProvider()
 
@@ -59,6 +62,9 @@ export const DataTable = ({ data })  => {
     }
     
     async function proposeInvoice(entry) {
+        setButtonText('Loading...');
+        setLoading(true);
+
         console.log("proposeInvoice " + entry);
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
         const ethAdapterOwner1 = new EthersAdapter({
@@ -128,6 +134,9 @@ export const DataTable = ({ data })  => {
           senderAddress: address,
           senderSignature: senderSignature.data,
         });
+
+        setButtonText('Proposed');
+        setLoading(false);
     }
 
     return (
@@ -144,13 +153,13 @@ export const DataTable = ({ data })  => {
                   {data.requests.map((entry, index) => (
                     <tr>
                       <td>{entry.githubId}</td>
-                      <td>{entry.walletAddress}</td>
-                      <td>{entry.amount}</td>
+                      <td class="eth-address">{entry.walletAddress}</td>
+                      <td>{ethers.utils.formatEther(parseInt(entry.amount))}</td>
                       <td>{entry.status}</td>
                       <td>{entry.transactionDate}</td>
                       <td>  <button
                                 className="btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest"
-                                onClick={() => proposeInvoice(entry)}
+                                onClick={() => proposeInvoice(entry) }
                             >
                             <>Propose</>   
                             </button></td>

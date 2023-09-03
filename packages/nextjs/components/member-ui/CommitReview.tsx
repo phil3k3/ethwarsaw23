@@ -36,16 +36,24 @@ export const CommitReview = () => {
       data.price = 0.0;
 
       console.log(requests);
+
+      function formatAddress(address) {
+        const prefix = address.slice(0, 6);
+        const suffix = address.slice(-4);
+        return `${prefix}...${suffix}`;
+      } 
       
 
       if (requests) {
-        const requestsTransformed = requests.map((request) => {
+        const requestsTransformed = requests.filter(
+          (request) => request.requestData?.expectedAmount.length < 10 && request.contentData?.reason.length > 2
+        ).map((request) => {
           return {
             githubId: request.contentData?.reason,
-            walletAddress: request.requestData?.payee.value,
+            walletAddress: formatAddress(request.requestData?.payee.value),
             amount: request.requestData?.expectedAmount,
             status: request.requestData?.state,
-            transactionDate: request.requestData?.timestamp,
+            transactionDate: new Date(request.requestData?.timestamp*1000).toLocaleString(),
             requestId: request.requestData?.requestId,
             multiSigApprovers: 0
           }
